@@ -7,7 +7,8 @@ const registerUser = async (req, res) =>{
     try {
         const defaultLink = {url: 'typefinance.com', title: 'TypeFinance.com', icon: ''}
         const user = await User.create({handle, email, password, role: category, links: [defaultLink]})
-        const token = jwt.sign({email: email},process.evn.SECRET_JWT)
+        const token = jwt.sign({email: email}, process.env.SECRET_JWT)
+        console.log('user',user)
         return res.json({message: 'user created', status: 'success', 'token':token, id: user._id}) 
     } catch (error) {
         if(error.code === '11000'){
@@ -18,7 +19,18 @@ const registerUser = async (req, res) =>{
 }
 
 const loginUser = (req, res) =>{
-    res.send(`login from callback`)
+    const { email, password, } =req.body;
+    try {
+        const user = User.findOne({email:email, password:password})
+        console.log(user)
+        if(!user){
+            return res.json({status: 'error', error: 'Invalid credentials'})
+        }
+        const token = jwt.sign({email: email}, process.env.SECRET_JWT)
+        return res.json ({message: 'user found', status: 'success', 'token':token, id: user._id}) 
+    } catch (error) {
+        return res.json({message: err.message, status: 'error'})
+    }
 }
 
 module.exports = {registerUser, loginUser}
