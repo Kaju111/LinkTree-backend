@@ -24,7 +24,7 @@ const loginUser = (req, res) =>{
         const user = User.findOne({email:email, password:password})
         console.log(user)
         if(!user){
-            return res.json({status: 'error', error: 'Invalid credentials'})
+            return res.json({status: 'not found', error: 'Invalid credentials'})
         }
         const token = jwt.sign({email: email}, process.env.SECRET_JWT)
         return res.json ({message: 'user found', status: 'success', 'token':token, id: user._id}) 
