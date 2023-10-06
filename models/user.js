@@ -27,3 +27,4 @@ const User = new Schema({
 const userModel = model ('userData',User)
 
 module.exports = userModel
+
