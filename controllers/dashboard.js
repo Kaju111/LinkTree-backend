@@ -8,7 +8,11 @@ const dashBoardData = async (req, res) => {
     const decodedTokenMail = jwt_decode(tokenMail, process.env.SECRET_JWT);
     const email = decodedTokenMail.email;
     console.log("decoded email", email);
+
     const user = await User.findOne({ email: email });
+
+    console.info("User ->", user)
+
     const userData = {
       name: user.name,
       role: user.role,
