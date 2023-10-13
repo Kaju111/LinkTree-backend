@@ -7,7 +7,7 @@ const getUserData = async (res, req) => {
     console.log(user);
     
     const userData = {
-      name: user.name,
+      name: user.handle,
       avater: user.avater,
       bio: user.bio,
       links: user.links,

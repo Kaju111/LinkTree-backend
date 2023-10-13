@@ -16,6 +16,7 @@ const dashBoardData = async (req, res) => {
     const userData = {
       name: user.name,
       role: user.role,
+      bio: user. bio,
       avater: user.avater,
       handle: user.handle,
       links: user.links.length,
